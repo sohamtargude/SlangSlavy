@@ -8,9 +8,10 @@ class GenerativeAI:
     def get_slang_details(self, slang):
         try:
             prompt = f"Define the slang term '{slang}' and use it in a sentence."
-            response = palm.generate_text(prompt=prompt)
-            if response and hasattr(response, 'result'):
-                text = response.result
+            model = palm.GenerativeModel("gemini-pro")
+            response = model.generate_content(prompt)
+            if response and hasattr(response, 'text'):
+                text = response.text
                 result_parts = text.split('\n', 1)
                 definition = result_parts[0] if len(result_parts) > 0 else "No definition found."
                 usage = result_parts[1] if len(result_parts) > 1 else "No usage example found."
@@ -19,6 +20,6 @@ class GenerativeAI:
                     "usage": usage
                 }
             else:
-                return {"error": "Invalid response from API"}
+                return {"error": "Empty response from model"}
         except Exception as e:
             return {"error": str(e)}
