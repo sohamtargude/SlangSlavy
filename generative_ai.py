@@ -1,15 +1,16 @@
-import google.generativeai as palm
+import google.generativeai as genai
 
 class GenerativeAI:
     def __init__(self, api_key):
         self.api_key = api_key
-        palm.configure(api_key=api_key)
+        genai.configure(api_key=api_key)
 
     def get_slang_details(self, slang):
         try:
+            model = genai.GenerativeModel(model_name="models/text-bison-001")  # supported model
             prompt = f"Define the slang term '{slang}' and use it in a sentence."
-            model = palm.GenerativeModel("gemini-pro")
             response = model.generate_content(prompt)
+
             if response and hasattr(response, 'text'):
                 text = response.text
                 result_parts = text.split('\n', 1)
@@ -20,6 +21,6 @@ class GenerativeAI:
                     "usage": usage
                 }
             else:
-                return {"error": "Empty response from model"}
+                return {"error": "Empty response from API"}
         except Exception as e:
             return {"error": str(e)}
