@@ -9,13 +9,11 @@ class GenerativeAI:
         try:
             prompt = f"Define the slang term '{slang}' and use it in a sentence."
             response = self.model.generate_content(prompt)
-            if hasattr(response, 'text'):
-                text = response.text
-                parts = text.strip().split('\n', 1)
-                return {
-                    "definition": parts[0],
-                    "usage": parts[1] if len(parts) > 1 else "No usage example found."
-                }
-            return {"error": "Empty response"}
+            text = response.text
+            parts = text.strip().split('\n', 1)
+            return {
+                "definition": parts[0],
+                "usage": parts[1] if len(parts) > 1 else "No usage found"
+            }
         except Exception as e:
             return {"error": str(e)}
