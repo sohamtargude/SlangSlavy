@@ -1,8 +1,8 @@
 import streamlit as st
 from generative_ai import GenerativeAI
 
-# Initialize Generative AI
-generative_ai = GenerativeAI(api_key="AIzaSyC6l0qfx31TCyIKSywhGhRLfYJGTQ58rfM")
+generative_ai = GenerativeAI(api_key=st.secrets["GOOGLE_API_KEY"])
+
 
 def main():
     st.title("Slang Meaning and Usage Generator")
