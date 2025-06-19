@@ -3,7 +3,7 @@ import google.generativeai as genai
 class GenerativeAI:
     def __init__(self, api_key):
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel("models/gemini-pro")  # ✅ full model path
+        self.model = genai.GenerativeModel("models/gemini-pro")
 
     def get_slang_details(self, slang):
         try:
