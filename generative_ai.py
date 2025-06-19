@@ -7,13 +7,13 @@ class GenerativeAI:
 
     def get_slang_details(self, slang):
         try:
-            model = genai.GenerativeModel(model_name="models/text-bison-001")  # supported model
+            model = genai.GenerativeModel(model_name="gemini-pro")  # ✅ Valid model for Gemini
             prompt = f"Define the slang term '{slang}' and use it in a sentence."
             response = model.generate_content(prompt)
 
-            if response and hasattr(response, 'text'):
+            if hasattr(response, 'text'):
                 text = response.text
-                result_parts = text.split('\n', 1)
+                result_parts = text.strip().split('\n', 1)
                 definition = result_parts[0] if len(result_parts) > 0 else "No definition found."
                 usage = result_parts[1] if len(result_parts) > 1 else "No usage example found."
                 return {
@@ -21,6 +21,6 @@ class GenerativeAI:
                     "usage": usage
                 }
             else:
-                return {"error": "Empty response from API"}
+                return {"error": "Empty response from model"}
         except Exception as e:
             return {"error": str(e)}
