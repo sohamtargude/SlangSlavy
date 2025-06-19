@@ -1,9 +1,5 @@
 import streamlit as st
 import google.generativeai as genai  # ✅ Add this to check version
-
-# ✅ Debug: show installed package version
-st.write("Google GenerativeAI version:", genai.__version__)
-
 from generative_ai import GenerativeAI
 
 generative_ai = GenerativeAI(api_key=st.secrets["GOOGLE_API_KEY"])
